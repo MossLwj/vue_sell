@@ -13,3 +13,5 @@ new Vue({
   template: '<App/>',
   components: {App}
 });
+// 初始化页面默认进入商品页
+router.push('/goods');
