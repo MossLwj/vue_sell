@@ -43,7 +43,7 @@
       </ul>
     </div>
     <!-- 底部购物车计算列 -->
-    <shop-cart></shop-cart>
+    <shop-cart :deliveryPrice="seller.deliveryPrice" :minPrice="seller.minPrice"></shop-cart>
   </div>
 </template>
 

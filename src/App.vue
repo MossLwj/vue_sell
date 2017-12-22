@@ -17,7 +17,7 @@
     <!--<div class="content">-->
     <!--I am content.-->
     <!--</div>-->
-    <router-view/>
+    <router-view :seller="seller"/>
   </div>
 </template>
 
