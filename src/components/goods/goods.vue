@@ -42,11 +42,14 @@
         </li>
       </ul>
     </div>
+    <!-- 底部购物车计算列 -->
+    <shop-cart></shop-cart>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
   import BScroll from 'better-scroll';
+  import shopCart from '../shopCart/shopCart.vue';
 
   const ERR_OK = 0;
 
@@ -104,7 +107,7 @@
         this.foodsScroll.scrollToElement(el, 300);
       },
       _initScroll() {
-        // BScroll会默认关闭点击事件，需要手动去开启事件
+        // BScroll会默认关闭点击事件，需要手动去开启事件 click: true
         this.menuScroll = new BScroll(this.$refs.menuWrapper, {
           click: true
         });
@@ -114,7 +117,7 @@
           probeType: 3
         });
 
-        // 监听scroll时间让其返回Y值
+        // 监听屏幕滑动的事件，获取滑动Y值
         this.foodsScroll.on('scroll', (pos) => {
           // 判断滑动方向，避免下拉时分类高亮错误（如第一分类商品数量为1时，下拉使得第二分类高亮）
           if (pos.y <= 0) {
@@ -132,6 +135,9 @@
           this.listHeight.push(height);
         }
       }
+    },
+    components: {
+      shopCart
     }
   };
 </script>
