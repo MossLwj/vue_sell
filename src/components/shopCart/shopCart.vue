@@ -121,7 +121,47 @@
           }
         }
       },
-      beforeDrop() {}
+      addFood(target) {
+        this.drop(target);
+      },
+      beforeDrop(el) {
+        let count = this.dropBalls.length;
+        while (count--) {
+          let ball = this.dropBalls[count];
+          if (ball.show) {
+            // 获取元素相对于视口的位置
+            let rect = ball.el.getBoundingClientRect();
+            let x = rect.left - 32;
+            let y = -(window.innerHeight - rect.top - 22);
+            el.style.display = '';
+            el.style.webkitTransform = `translate3d(0,${y}px,0)`;
+            el.style.transform = `translate3d(0,${y}px,0)`;
+            let inner = el.getElementsByClassName('inner-hook')[0];
+            inner.style.webkitTransform = `translate3d(${x}px,0,0)`;
+            inner.style.transform = `translate3d(${x}px,0,0)`;
+          }
+        }
+      },
+      dropping(el, done) {
+        // 触发浏览器重绘
+        /* eslint-disable no-unused-vars */
+        let rf = el.offsetHeight;
+        this.$nextTick(() => {
+          el.style.webkitTransform = 'translate3d(0,0,0)';
+          el.style.transform = 'translate3d(0,0,0)';
+          let inner = el.getElementsByClassName('inner-hook')[0];
+          inner.style.webkitTransform = 'translate3d(0,0,0)';
+          inner.style.transform = 'translate3d(0,0,0)';
+          el.addEventListener('transitionend', done);
+        });
+      },
+      afterDrop(el) {
+        let ball = this.dropBalls.shift();
+        if (ball) {
+          ball.show = false;
+          el.style.display = 'none';
+        }
+      }
     }
   };
 </script>

@@ -46,7 +46,7 @@
       </ul>
     </div>
     <!-- 底部购物车计算列 -->
-    <shop-cart :select-foods="selectFoods" :deliveryPrice="seller.deliveryPrice"
+    <shop-cart ref="shopCart" :select-foods="selectFoods" :deliveryPrice="seller.deliveryPrice"
                :minPrice="seller.minPrice"></shop-cart>
   </div>
 </template>
@@ -155,8 +155,10 @@
         this._drop(target);
       },
       _drop(target) {
-        // 体验优化，异步执行下落动画
-        this.$refs.shopCart.drop(target);
+        // 体验优化,异步执行下落动画(防止减图标的动画和小球的动画一起出现产生卡顿)
+        this.$nextTick(() => {
+          this.$refs.shopCart.drop(target);
+        });
       }
     },
     components: {
