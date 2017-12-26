@@ -24,12 +24,34 @@
         </transition>
       </div>
     </div>
+    <div class="shopCart-list" v-show="listShow">
+      <div class="list-header">
+        <h1 class="title">购物车</h1>
+        <span class="empty">清空</span>
+      </div>
+      <div class="list-content">
+        <ul>
+          <li class="food" v-for="food in selectFoods">
+            <span class="name">{{food.name}}</span>
+            <div class="price">
+              <span class="">¥{{food.price * food.count}}</span>
+            </div>
+            <div class="cartControl-wrapper">
+              <cart-control :food="selectFoods"></cart-control>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+  import cartControl from '../cartControl/cartControl';
+
   export default {
     // name: "shopCart"
+    components: {cartControl},
     props: {
       selectFoods: {
         type: Array,
