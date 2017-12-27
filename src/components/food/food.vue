@@ -17,13 +17,18 @@
           <div class="price">
             <span class="now">￥{{food.price}}</span><span class="old" v-show="food.oldPrice">￥{{food.oldPrice}}</span>
           </div>
+          <div class="cartControl-wrapper">
+            <cartControl @add="addFood" :food="food"></cartControl>
+          </div>
+          <transition name="fade">
+            <div @click="addFirst" class="buy" v-show="!food.count || food.count === 0">加入购物车</div>
+          </transition>
         </div>
-        <div class="cartControl-wrapper">
-          <cartControl @add="addFood" :food="food"></cartControl>
+        <split v-show="food.info"></split>
+        <div class="info" v-show="food.info">
+          <h1 class="title">商品信息</h1>
+          <p class="text">{{food.info}}</p>
         </div>
-        <transition name="fade">
-          <div @click="addFirst" class="buy" v-show="!food.count || food.count === 0">加入购物车</div>
-        </transition>
       </div>
     </div>
   </transition>
@@ -33,6 +38,7 @@
   import BScroll from 'better-scroll';
   import Vue from 'vue';
   import cartControl from '../../components/cartControl/cartControl.vue';
+  import split from '../../components/split/split';
 
   export default {
     props: {
@@ -73,7 +79,8 @@
       }
     },
     components: {
-      cartControl
+      cartControl,
+      split
     }
   };
 </script>
@@ -113,6 +120,7 @@
           font-size: 20px
           color: #fff
     .content
+      position: relative
       padding: 18px
       .title
         line-height: 14px
@@ -163,5 +171,16 @@
         transition: all 0.8s
       &.fade-enter, &.fade-leave-active
         opacity: 0
-
+    .info
+      padding: 18px
+      .title
+        line-height: 14px
+        margin-bottom: 6px
+        font-size: 14px
+        color: rgb(7, 17, 27)
+      .text
+        line-height: 24px
+        padding: 0 8px
+        font-size: 12px
+        color: rgb(77, 85, 93)
 </style>
