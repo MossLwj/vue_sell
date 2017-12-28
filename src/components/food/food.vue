@@ -32,7 +32,7 @@
         <split></split>
         <div class="rating">
           <h1 class="title">商品评价</h1>
-          <ratingSelect :select-type="selectType" :desc="desc" :only-content="onlyContent"
+          <ratingSelect :selectType="selectType" :desc="desc" :only-content="onlyContent"
                         :ratings="food.ratings" @select="selectRating" @toggle="toggleContent"></ratingSelect>
           <div class="rating-wrapper">
             <ul v-show="food.ratings && food.ratings.length">
@@ -90,7 +90,7 @@
       show() {
         this.showFlag = true;
         this.selectType = ALL;
-        this.onlyContent = false;
+        this.onlyContent = true;
         this.$nextTick(() => {
           if (!this.scroll) {
             this.scroll = new BScroll(this.$refs.food, {
