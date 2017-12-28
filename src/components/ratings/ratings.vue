@@ -64,6 +64,8 @@
 
   const ALL = 2;
   const ERR_OK = 0;
+  const debug = process.env.NODE_ENV !== 'production';
+
   export default {
     name: 'ratings',
     data() {
@@ -79,11 +81,11 @@
       }
     },
     created() {
-      this.$http.get('/api/ratings').then((response) => {
+      const url = debug ? '/api/ratings' : 'http://ustbhuangyi.com/sell/api/ratings';
+      this.$http.get(url).then((response) => {
         response = response.body;
         if (response.errno === ERR_OK) {
           this.ratings = response.data;
-          // console.log(this.ratings);
           this.$nextTick(() => {
             this.scroll = new BScroll(this.$refs.ratings, {
               click: true
